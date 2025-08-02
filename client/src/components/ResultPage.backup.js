@@ -395,54 +395,6 @@ function ResultPage({ plotData, setShowResult }) {
     };
   }, [viewTransform.isDragging, isAnimating]);
 
-  // Add after other useState hooks
-  const [hoverCoords, setHoverCoords] = useState(null);
-
-  // Add this function inside the component
-  const handleMouseMove = (event) => {
-    if (!canvasRef.current) return;
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-    // Get mouse position relative to canvas, accounting for zoom/pan
-    const px = (event.clientX - rect.left - viewTransform.offsetX) / viewTransform.scale;
-    const py = (event.clientY - rect.top - viewTransform.offsetY) / viewTransform.scale;
-    // These should match your drawPlot logic
-    const plotLeft = 60;
-    const plotTop = 40;
-    const plotWidth = canvas.width - plotLeft - 30;
-    const plotHeight = canvas.height - plotTop - 40;
-    // Get your data bounds (should match drawPlot)
-    const xData = plotData.interpolated.x;
-    const methods = ['linear', 'spline', 'newton_forward', 'newton_backward', 'divided'];
-    const allYValues = methods.reduce((acc, method) => {
-      if (plotData.interpolated[method]) {
-        acc.push(...plotData.interpolated[method]);
-      }
-      return acc;
-    }, []);
-    const minX = Math.min(...xData);
-    const maxX = Math.max(...xData);
-    const minY = Math.min(...allYValues);
-    const maxY = Math.max(...allYValues);
-    // Padding logic (should match drawPlot)
-    const paddedMinX = minX - 0.05 * (maxX - minX);
-    const paddedMaxX = maxX + 0.05 * (maxX - minX);
-    const paddedMinY = minY - 0.15 * (maxY - minY);
-    const paddedMaxY = maxY + 0.05 * (maxY - minY);
-    // Only show tooltip if inside plot area
-    if (
-      px >= plotLeft && px <= plotLeft + plotWidth &&
-      py >= plotTop && py <= plotTop + plotHeight
-    ) {
-      // Convert pixel to data coordinates
-      const x = paddedMinX + ((px - plotLeft) / plotWidth) * (paddedMaxX - paddedMinX);
-      const y = paddedMaxY - ((py - plotTop) / plotHeight) * (paddedMaxY - paddedMinY);
-      setHoverCoords({ x, y, px: event.clientX - rect.left, py: event.clientY - rect.top });
-    } else {
-      setHoverCoords(null);
-    }
-  };
-
   if (!plotData || !plotData.recommendation) return null;
 
   return (
@@ -494,30 +446,8 @@ function ResultPage({ plotData, setShowResult }) {
           <canvas
             ref={canvasRef}
             className="border-2 border-[#ADD8E6]/50 rounded-lg shadow-md"
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => setHoverCoords(null)}
           ></canvas>
           
-          {hoverCoords && (
-            <div
-              style={{
-                position: "absolute",
-                left: hoverCoords.px + 20,
-                top: hoverCoords.py,
-                background: "rgba(0,0,0,0.8)",
-                color: "#fff",
-                padding: "4px 8px",
-                borderRadius: "4px",
-                pointerEvents: "none",
-                fontSize: "13px",
-                zIndex: 10
-              }}
-            >
-              x: {hoverCoords.x.toFixed(4)}<br />
-              y: {hoverCoords.y.toFixed(4)}
-            </div>
-          )}
-
           {/* Zoom controls */}
           <div className="absolute top-4 right-4 flex flex-col gap-2 bg-white/90 p-2 rounded-lg shadow-md">
             <button
