@@ -42,14 +42,25 @@ An interactive web application for visualizing and comparing different interpola
    npm install
    ```
 
-3. Start the development servers:
-   ```bash
-   # Start backend server (from server directory)
-   npm start
+## How to Run the Project
 
-   # Start frontend development server (from client directory)
-   npm start
-   ```
+To run the project locally, you need to start both the backend (server) and frontend (client) development servers. Open two terminal windows or tabs and follow these steps:
+
+### 1. Start the Backend Server
+```bash
+cd server
+npm install   # Install backend dependencies (only needed once)
+npm start     # Start the backend server (default: http://localhost:5000)
+```
+
+### 2. Start the Frontend Client
+```bash
+cd client
+npm install   # Install frontend dependencies (only needed once)
+npm start     # Start the frontend development server (default: http://localhost:3000)
+```
+
+The frontend will be available at http://localhost:3000 and the backend at http://localhost:5000 by default.
 
 4. Open http://localhost:3000 in your browser
 
