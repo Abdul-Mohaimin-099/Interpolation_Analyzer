@@ -12,6 +12,30 @@ function Info() {
       linkedin: "https://www.linkedin.com/in/abdul-mohaimin-95543a353/",
       image: "/images/developers/dp.jpg"
     },
+    {
+      name: "Mohammad Arafat",
+      role: "Co Developer",
+      description: "",
+      github: "https://github.com/araf168",
+      linkedin: "",
+      image: "/images/developers/WhatsApp Image 2025-08-03 at 12.56.30_df3c776b.jpg"
+    },
+    {
+      name: "Abu Tanvir Hasan Tanmoy",
+      role: "Co Developer",
+      description: "",
+      github: "https://github.com/MATH-Tanmoy01",
+      linkedin: "",
+      image: "/images/developers/WhatsApp Image 2025-08-03 at 14.07.59_509f2213.jpg"
+    },
+    {
+      name: "Tayeb Mahmud Minar",
+      role: "Co Developer",
+      description: "",
+      github: "https://github.com/tminar53-coder",
+      linkedin: "",
+      image: "/images/developers/WhatsApp Image 2025-08-03 at 19.02.10_def03ca1.jpg"
+    }
     
   ];
 
